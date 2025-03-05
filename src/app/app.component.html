@@ -1,0 +1,140 @@
+<div>
+  <!-- Register Form -->
+  <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+    <h4>Employee Details</h4>
+  
+    <div>
+      <label for="firstname">First Name</label>
+      <div>
+        <input id="firstname" required [(ngModel)]="employee.firstname" name="firstname" type="text" placeholder="Enter first name" #firstname="ngModel">
+        <div *ngIf="firstname.invalid && firstname.touched">
+          <small>First name is required</small>
+        </div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="lastname">Last Name</label>
+      <div>
+        <input id="lastname" required [(ngModel)]="employee.lastname" name="lastname" type="text" placeholder="Enter last name" #lastname="ngModel">
+        <div *ngIf="lastname.invalid && lastname.touched">
+          <small>Last name is required</small>
+        </div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="email">Email</label>
+      <div>
+        <input id="email" required [(ngModel)]="employee.email" name="email" type="email" placeholder="Enter email" #email="ngModel">
+        <div *ngIf="email.invalid && email.touched">
+          <small>Email is required</small>
+        </div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="department">Department</label>
+      <div>
+        <input id="department" required [(ngModel)]="employee.department" name="department" type="text" placeholder="Enter department" #department="ngModel">
+        <div *ngIf="department.invalid && department.touched">
+          <small>Department is required</small>
+        </div>
+      </div>
+    </div>
+  
+    <div>
+      <input type="submit" value="Submit" [disabled]="registerForm.invalid">
+    </div>
+  </form> 
+  
+
+  <!-- Employee Table -->
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{employee.id}}</td>
+          <td>{{employee.firstName}}</td>
+          <td>{{employee.lastName}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.department}}</td>
+          <td>
+            <button type="button" (click)="edit(employee)">Edit</button>
+          </td>
+          <td>
+            <button type="button" (click)="deleteEmployee(employee)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Update Modal -->
+  <div *ngIf="employeeToUpdate">
+    <div>
+      <div>
+        <div>
+          <form #updateForm="ngForm" (ngSubmit)="updateEmployee()">
+            <h4>Update Employee</h4>
+
+            <div>
+              <label for="updateFirstName">First Name</label>
+              <div>
+                <input id="updateFirstName" required [(ngModel)]="employeeToUpdate.firstName" name="firstName" type="text" placeholder="Enter first name">
+                <div *ngIf="updateForm.controls['firstName']?.invalid && updateForm.controls['firstName']?.touched">
+                  <small>First name is required</small>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label for="updateLastName">Last Name</label>
+              <div>
+                <input id="updateLastName" required [(ngModel)]="employeeToUpdate.lastName" name="lastName" type="text" placeholder="Enter last name">
+                <div *ngIf="updateForm.controls['lastName']?.invalid && updateForm.controls['lastName']?.touched">
+                  <small>Last name is required</small>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label for="updateEmail">Email</label>
+              <div>
+                <input id="updateEmail" required [(ngModel)]="employeeToUpdate.email" name="email" type="email" placeholder="Enter email">
+                <div *ngIf="updateForm.controls['email']?.invalid && updateForm.controls['email']?.touched">
+                  <small>Email is required</small>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label for="updateDepartment">Department</label>
+              <div>
+                <input id="updateDepartment" required [(ngModel)]="employeeToUpdate.department" name="department" type="text" placeholder="Enter department">
+                <div *ngIf="updateForm.controls['department']?.invalid && updateForm.controls['department']?.touched">
+                  <small>Department is required</small>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <input type="submit" value="Update" [disabled]="updateForm.invalid">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
